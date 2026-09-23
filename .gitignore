@@ -7,8 +7,5 @@ __pycache__/
 
 .ipynb_checkpoints/
 
-models/*.pkl
-models/*.joblib
-
 .DS_Store
 Thumbs.db

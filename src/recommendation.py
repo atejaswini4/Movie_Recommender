@@ -1,19 +1,38 @@
+import os
 import pandas as pd
 import joblib
-
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.neighbors import NearestNeighbors
 from scipy.sparse import hstack, csr_matrix
 
-BASE_DIR = r"C:\Users\allam_cqqjtot\OneDrive\Desktop\Movie-Recommendation-System\Movie-Recommendation-System"
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
 
-MOVIES_FILE = BASE_DIR + r"\data\clustered_movies.csv"
-MODEL_FILE = BASE_DIR + r"\models\random_forest_model.pkl"
-PREPROCESSOR_FILE = BASE_DIR + r"\models\random_forest_preprocessor.pkl"
+MOVIES_FILE = os.path.join(
+    BASE_DIR,
+    "data",
+    "clustered_movies.csv"
+)
+
+MODEL_FILE = os.path.join(
+    BASE_DIR,
+    "models",
+    "random_forest_model.pkl"
+)
+
+PREPROCESSOR_FILE = os.path.join(
+    BASE_DIR,
+    "models",
+    "random_forest_preprocessor.pkl"
+)
 
 movies = pd.read_csv(MOVIES_FILE)
 
 rf_model = joblib.load(MODEL_FILE)
+
 rf_preprocessor = joblib.load(PREPROCESSOR_FILE)
 
 categorical_features = [
@@ -31,14 +50,17 @@ numerical_features = [
 ]
 
 movies[categorical_features] = movies[categorical_features].fillna("Unknown")
+
 movies[numerical_features] = movies[numerical_features].fillna(0)
 
 encoder = OneHotEncoder(handle_unknown="ignore")
+
 categorical_matrix = encoder.fit_transform(
     movies[categorical_features]
 )
 
 scaler = StandardScaler()
+
 numerical_matrix = scaler.fit_transform(
     movies[numerical_features]
 )
@@ -74,6 +96,7 @@ def calculate_genre_similarity(selected_genres, movie_genres):
         return 0
 
     selected_set = set(selected_genres)
+
     movie_set = set(movie_genres)
 
     common = selected_set.intersection(movie_set)
