@@ -3,6 +3,7 @@
 A Machine Learning based Movie Recommendation System that recommends similar movies based on a movie selected by the user.
 
 The system combines **K-Means Clustering, K-Nearest Neighbors (KNN), and Random Forest** to generate and rank movie recommendations. Movie posters are retrieved using the **TMDB API** and displayed through an interactive **Streamlit** web application.
+🔗 **Live Demo:** https://movierecommender-xzztnwagn2dnwgapsjjwhh.streamlit.app/
 
 ## 🚀 Features
 
